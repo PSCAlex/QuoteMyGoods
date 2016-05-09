@@ -1,0 +1,9 @@
+﻿@model QuoteMyGoods.Models.Product
+
+@{ 
+    ViewBag.Title = Model.Name;
+}
+
+<div>
+    @Component.Invoke("ProductDetails",Model)
+</div>
