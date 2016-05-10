@@ -12,6 +12,8 @@ using QuoteMyGoods.Services;
 using AutoMapper;
 using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Mvc.Filters;
+using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.Extensions.Caching.Redis;
 //using AutoMapper;
 
 namespace QuoteMyGoods
@@ -41,18 +43,18 @@ namespace QuoteMyGoods
                     opt.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 });
 
-            services.AddCaching();
+            services.AddSingleton<IDistributedCache>(
+                serviceProvider =>
+                    new RedisCache(new RedisCacheOptions
+                    {
+                        Configuration = "qmgrediscache.redis.cache.windows.net:6380,password=beSaRecMqNGWrES1pVKvQPzpNq6GJs1Omlmolc4KeB0=,ssl=True,abortConnect=False",
+                        InstanceName = "qmgrediscache"
+                    }));
+
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(30);
                 options.CookieName = "QMG";
-            });
-
-            services.AddSqlServerCache(options =>
-            {
-                options.ConnectionString = Configuration["Data:SessionConnection"];
-                options.SchemaName = "dbo";
-                options.TableName = "Sessions";
             });
 
             services.AddIdentity<QMGUser, IdentityRole>(config =>

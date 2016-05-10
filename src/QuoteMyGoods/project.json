@@ -26,7 +26,8 @@
     "Microsoft.Extensions.Caching.SqlServer": "1.0.0-rc1-final",
     "d3.TypeScript.DefinitelyTyped": "2.6.6",
     "QMGAzure": "1.0.0-*",
-    "Microsoft.ApplicationInsights.AspNet": "1.0.0-beta8"
+    "Microsoft.ApplicationInsights.AspNet": "1.0.0-beta8",
+    "Microsoft.Extensions.Caching.Redis": "1.0.0-rc1-final"
   },
   "exclude": [
     "wwwroot",
