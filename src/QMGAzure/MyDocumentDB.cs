@@ -10,13 +10,15 @@ namespace QMGAzure
 {
     public class MyDocumentDB
     {
-        private const string EndpointUri = DocumentDBAppSettings.ConnectionUri;
-        private const string PrimaryKey = DocumentDBAppSettings.PrimaryKey;
+        private string _EndpointUri;
+        private string _PrimaryKey;
         private DocumentClient _client;
 
-        public MyDocumentDB(string databaseName)
+        public MyDocumentDB(string databaseName, string ConnectionUri, string PrimaryKey)
         {
-            _client = new DocumentClient(new Uri(EndpointUri), PrimaryKey);
+            _EndpointUri = ConnectionUri;
+            _PrimaryKey = PrimaryKey;
+            _client = new DocumentClient(new Uri(_EndpointUri), _PrimaryKey);
         }
 
         public async Task CreateDatabaseIfNotExists(string databaseName)

@@ -10,6 +10,7 @@ namespace QMGAzure
     public class RedisCache
     {
         private IDatabase _cache;
+        private static string _connectionString;
         public static ConnectionMultiplexer _connection
         {
             get
@@ -18,8 +19,9 @@ namespace QMGAzure
             }
         }
 
-        public RedisCache()
+        public RedisCache(string connectionString)
         {
+            _connectionString = connectionString;
             _cache = _connection.GetDatabase();
         }
 
@@ -53,7 +55,7 @@ namespace QMGAzure
 
         private static Lazy<ConnectionMultiplexer> lazyConnection = new Lazy<ConnectionMultiplexer>(() =>
         {
-            return ConnectionMultiplexer.Connect(RedisStorageSettings.ConnectionString);
+            return ConnectionMultiplexer.Connect(_connectionString);
         });
     }
 }

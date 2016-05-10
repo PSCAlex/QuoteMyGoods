@@ -21,7 +21,7 @@ namespace QuoteMyGoods.Controllers.Admin
 
         public AdminController(IQMGRepository repo, ITableService tableService)
         {
-            _db = new MyDocumentDB("alexpscdb");
+            _db = new MyDocumentDB("alexpscdb",Startup.Configuration["DocumentDB:ConnectionUri"],Startup.Configuration["DocumentDB:PrimaryKey"]);
             _repository = repo;
             _tableService = tableService;
         } 

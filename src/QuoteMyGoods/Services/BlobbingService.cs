@@ -17,7 +17,7 @@ namespace QuoteMyGoods.Services
 
         public BlobbingService()
         {
-            _blobStorage = new BlobStorage();
+            _blobStorage = new BlobStorage(Startup.Configuration["BlobStorage:ConnectionString"]);
         }
 
         public void UploadBlob<T>(string fileReference, T file)

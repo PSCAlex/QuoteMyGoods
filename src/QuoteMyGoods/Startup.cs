@@ -14,6 +14,7 @@ using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Mvc.Filters;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Caching.Redis;
+using QMGAzure;
 //using AutoMapper;
 
 namespace QuoteMyGoods
@@ -26,7 +27,8 @@ namespace QuoteMyGoods
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(appEnv.ApplicationBasePath)
-                .AddJsonFile("config.json");
+                .AddJsonFile("config.json")
+                .AddEnvironmentVariables();
             Configuration = builder.Build();
         }
 
@@ -45,7 +47,7 @@ namespace QuoteMyGoods
 
             services.AddSingleton<IDistributedCache>(
                 serviceProvider =>
-                    new RedisCache(new RedisCacheOptions
+                    new Microsoft.Extensions.Caching.Redis.RedisCache(new RedisCacheOptions
                     {
                         Configuration = "qmgrediscache.redis.cache.windows.net:6380,password=beSaRecMqNGWrES1pVKvQPzpNq6GJs1Omlmolc4KeB0=,ssl=True,abortConnect=False",
                         InstanceName = "qmgrediscache"
@@ -116,6 +118,6 @@ namespace QuoteMyGoods
         }
 
         // Entry point for the application.
-        public static void Main(string[] args) => WebApplication.Run<Startup>(args);
+        public static void Main(string[] args) => WebApplication.Run<Startup>(args);   
     }
 }

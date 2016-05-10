@@ -21,7 +21,7 @@ namespace QuoteMyGoods.Services
 
         public TableService()
         {
-            _tableStorage = new TableStorage("qmgusers");
+            _tableStorage = new TableStorage("qmgusers",Startup.Configuration["TableStorage:ConnectionString"]);
         }
 
         public void AddObjectToTable(object obj)

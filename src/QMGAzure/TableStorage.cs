@@ -14,9 +14,9 @@ namespace QMGAzure
         private CloudStorageAccount _storageAccount;
         private CloudTableClient _tableClient;
 
-        public TableStorage(string tableReference)
+        public TableStorage(string tableReference, string connectionString)
         {
-            _storageAccount = CloudStorageAccount.Parse(TableStorageSettings.ConnectionString);
+            _storageAccount = CloudStorageAccount.Parse(connectionString);
             _tableClient = _storageAccount.CreateCloudTableClient();
             _table = _tableClient.GetTableReference(tableReference);
             _table.CreateIfNotExists();

@@ -17,9 +17,9 @@ namespace QMGAzure
         private CloudStorageAccount _cloudStorageAccount;
         private CloudBlobContainer _container;
 
-        public BlobStorage()
+        public BlobStorage(string connectionString)
         {
-            _cloudStorageAccount = CloudStorageAccount.Parse(BlobStorageSettings.ConnectionString);
+            _cloudStorageAccount = CloudStorageAccount.Parse(connectionString);
             _blobClient = _cloudStorageAccount.CreateCloudBlobClient();
             _container = _blobClient.GetContainerReference("qmgbaskets");
             _container.CreateIfNotExists();
@@ -40,7 +40,6 @@ namespace QMGAzure
             blockBlob.DownloadToByteArray(bytes, 0);
 
             return JsonConvert.DeserializeObject<T>(Encoding.Default.GetString(bytes));
-            
         }
 
         public void deleteBlob(string blobReference)

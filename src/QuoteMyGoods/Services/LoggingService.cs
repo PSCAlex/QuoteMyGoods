@@ -17,7 +17,7 @@ namespace QuoteMyGoods.Services
 
         public LoggingService()
         {
-            _db = new MyDocumentDB("alexpscdb");
+            _db = new MyDocumentDB("alexpscdb",Startup.Configuration["DocumentDB:ConnectionUri"], Startup.Configuration["DocumentDB:PrimaryKey"]);
         }
 
         public async void Log(string userId, string process)

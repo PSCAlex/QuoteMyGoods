@@ -19,7 +19,7 @@ namespace QuoteMyGoods.Services
 
         public RedisService()
         {
-            _redisCache = new RedisCache();
+            _redisCache = new RedisCache(Startup.Configuration["RedisCache:ConnectionString"]);
         }
 
         public object GetObject<T>(string key)
