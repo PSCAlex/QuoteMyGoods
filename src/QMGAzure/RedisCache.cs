@@ -55,7 +55,5 @@ namespace QMGAzure
         {
             return ConnectionMultiplexer.Connect(RedisStorageSettings.ConnectionString);
         });
-
-        
     }
 }
