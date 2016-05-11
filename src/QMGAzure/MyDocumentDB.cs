@@ -21,8 +21,11 @@ namespace QMGAzure
             _client = new DocumentClient(new Uri(_EndpointUri), _PrimaryKey);
         }
 
-        public async Task CreateDatabaseIfNotExists(string databaseName)
+        public MyDocumentDB() { }
+
+        public async void CreateDatabaseIfNotExists(string databaseName)
         {
+            /*
             try
             {
                 await _client.ReadDatabaseAsync(UriFactory.CreateDatabaseUri(databaseName));
@@ -41,10 +44,12 @@ namespace QMGAzure
                     throw;
                 }
             }
+            */
         }
 
-        public async Task CreateDocumentCollectionIfNotExists(string databaseName, string collectionName)
+        public async void CreateDocumentCollectionIfNotExists(string databaseName, string collectionName)
         {
+            /*
             await CreateDatabaseIfNotExists(databaseName);
             try
             {
@@ -65,10 +70,12 @@ namespace QMGAzure
                         new RequestOptions { OfferThroughput = 400 });
                 }
             }
+            */
         }
 
-        public async Task CreateDocumentIfNotExists(string databaseName, string collectionName, Object obj, string id = "noId")
+        public async void CreateDocumentIfNotExists(string databaseName, string collectionName, Object obj, string id = "noId")
         {
+            /*
             await CreateDatabaseIfNotExists(databaseName);
             await CreateDocumentCollectionIfNotExists(databaseName, collectionName);
             try
@@ -84,10 +91,12 @@ namespace QMGAzure
                     //created document
                 }
             }
+            */
         }
 
         public LoggingDocument GetDocById(string collectionName, string id)
         {
+            /*
             //var query = _client.CreateDocumentQuery<LoggingDocument>(UriFactory.CreateDocumentCollectionUri("alexpscdb", collectionName),
             //    $"SELECT * FROM {collectionName} WHERE logging.id = {id}");
 
@@ -95,22 +104,30 @@ namespace QMGAzure
                 Where(l => l.id == id); 
 
             return query.AsEnumerable().FirstOrDefault();
+            */
+            return default(LoggingDocument);
         }
 
         public IEnumerable<LoggingDocument> GetDocsByUserId(string collectionName, string id)
         {
+            /*
             IQueryable<LoggingDocument> query = _client.CreateDocumentQuery<LoggingDocument>(UriFactory.CreateDocumentCollectionUri("alexpscdb", collectionName)).
                 Where(l => l.UserId == id);
 
             return query.ToList().OrderByDescending(l => l.Time.Date).ThenByDescending(l => l.Time.TimeOfDay);
+            */
+            return default(IEnumerable<LoggingDocument>);
         }
 
         public IEnumerable<LoggingDocument> GetAllDocs(string collectionName, int limit = 1000)
         {
+            /*
             IQueryable<LoggingDocument> query = _client.CreateDocumentQuery<LoggingDocument>(UriFactory.CreateDocumentCollectionUri("alexpscdb", collectionName),
                 $"SELECT * FROM {collectionName}");
 
             return query.ToList().OrderByDescending(l => l.Time.Date).ThenByDescending(l => l.Time.TimeOfDay);
+            */
+            return default(IEnumerable<LoggingDocument>);
         }
     }
 

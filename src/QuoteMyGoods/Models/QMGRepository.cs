@@ -21,7 +21,7 @@ namespace QuoteMyGoods.Models
             _context = context;
             _logger = logger;
             _currentProductCount = 0;
-            _redisCache = new RedisCache(Startup.Configuration["RedisCache:ConnectionString"]);
+            _redisCache = new RedisCache(/*Startup.Configuration["RedisCache:ConnectionString"]*/);
         }
         public void AddProduct(Product newProduct)
         {
@@ -42,7 +42,6 @@ namespace QuoteMyGoods.Models
         public async Task<IEnumerable<Product>> GetAllProducts()
         {
             var cachedProducts = await _redisCache.GetObject<List<Product>>("CachedProducts");
-            _currentProductCount = cachedProducts.Count;
             if(cachedProducts == null)
             {
                 var products = _context.Products.OrderBy(p => p.Name).ToList();
@@ -51,6 +50,7 @@ namespace QuoteMyGoods.Models
                 return products;
             }else
             {
+                _currentProductCount = cachedProducts.Count;
                 return cachedProducts;
             }
 

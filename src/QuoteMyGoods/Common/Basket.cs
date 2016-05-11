@@ -114,7 +114,7 @@ namespace QuoteMyGoods.Common
 
         public void SetBasket(Dictionary<int,BasketItem> basket)
         {
-            _Basket = basket;
+            _Basket = basket ?? new Dictionary<int, BasketItem>();
             BasketCount = basket.Sum(b => b.Value.GetQuantity());
             SaveToSession();
         }

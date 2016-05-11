@@ -19,27 +19,29 @@ namespace QuoteMyGoods.Services
 
         public RedisService()
         {
-            _redisCache = new RedisCache(Startup.Configuration["RedisCache:ConnectionString"]);
+           // _redisCache = new RedisCache(Startup.Configuration["RedisCache:ConnectionString"]);
         }
 
         public object GetObject<T>(string key)
         {
-            return _redisCache.GetObject<T>(key);
+            //return _redisCache.GetObject<T>(key);
+            return default(T);
         }
 
         public async Task<string> GetString(string key)
         {
-            return await _redisCache.GetString(key);
+            //return await _redisCache.GetString(key);
+            return default(string);
         }
 
         public void SetObject(string key, object value)
         {
-            _redisCache.SetObject(key, value);
+            //_redisCache.SetObject(key, value);
         }
 
         public void SetString(string key, string value)
         {
-            _redisCache.SetString(key, value);
+            //_redisCache.SetString(key, value);
         }
     }
 }

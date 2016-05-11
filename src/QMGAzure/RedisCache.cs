@@ -25,23 +25,27 @@ namespace QMGAzure
             _cache = _connection.GetDatabase();
         }
 
+        public RedisCache() { }
+
         public void SetString(string key, string value)
         {
-            _cache.StringSetAsync(key, value);
+            //_cache.StringSetAsync(key, value);
         }
 
         public async Task<string> GetString(string key)
         {
-            return await _cache.StringGetAsync(key);
+            //return await _cache.StringGetAsync(key);
+            return default(string);
         }
 
         public void SetObject(string key, object value)
         {
-            _cache.StringSetAsync(key, JsonConvert.SerializeObject(value));
+            //_cache.StringSetAsync(key, JsonConvert.SerializeObject(value));
         }
 
         public async Task<T> GetObject<T>(string key)
         {
+            /*
             var obj = await _cache.StringGetAsync(key);
             if(!obj.IsNull)
             {
@@ -50,6 +54,8 @@ namespace QMGAzure
             {
                 return default(T);
             }
+            */
+            return default(T);
             
         }
 

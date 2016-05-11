@@ -3,11 +3,8 @@
     "SiteEmailAddress" :  "noalgalex@gmail.com"
   },
   "Data": {
-    //"QMGContextConnection": "Server=(localdb)\\MSSQLLocalDb;Database=QMGDb;Trusted_Connection=true;MultipleActiveResultSets=true",
-    "QMGContextConnection": "Server=tcp:qmg.database.windows.net,1433;Database=QMGDB;User ID=alex@qmg;Password=Left4dead2;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",
-    //"AzzureConnection": "Server=tcp:qmg.database.windows.net,1433;Database=QMGDB;User ID=alex@qmg;Password={your_password_here};Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",
-    "SessionConnection": "Server=tcp:qmg.database.windows.net,1433;Database=QMGDB;User ID=alex@qmg;Password=Left4dead2;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
-    //"SessionConnection": "Server=tcp:qmg.database.windows.net,1433;Database=QMGSessions;User ID=alex@qmg;Password={your_password_here};Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+    "QMGContextConnection": "Server=(localdb)\\MSSQLLocalDb;Database=QMGDb;Trusted_Connection=true;MultipleActiveResultSets=true",
+    //"QMGContextConnection": "Server=tcp:qmg.database.windows.net,1433;Database=QMGDB;User ID=alex@qmg;Password=Left4dead2;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",
   },
   "DocumentDB": {
     "ConnectionUri": "",

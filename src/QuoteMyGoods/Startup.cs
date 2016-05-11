@@ -45,6 +45,7 @@ namespace QuoteMyGoods
                     opt.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 });
 
+            /*
             services.AddSingleton<IDistributedCache>(
                 serviceProvider =>
                     new Microsoft.Extensions.Caching.Redis.RedisCache(new RedisCacheOptions
@@ -52,7 +53,9 @@ namespace QuoteMyGoods
                         Configuration = "qmgrediscache.redis.cache.windows.net:6380,password=beSaRecMqNGWrES1pVKvQPzpNq6GJs1Omlmolc4KeB0=,ssl=True,abortConnect=False",
                         InstanceName = "qmgrediscache"
                     }));
+                    */
 
+            services.AddCaching();
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(30);
