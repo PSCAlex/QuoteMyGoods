@@ -17,10 +17,12 @@ namespace QuoteMyGoods.Controllers.Auth
     public class AuthController:Controller
     {
         private SignInManager<QMGUser> _signInManager;
+        private UserManager<QMGUser> _userManager;
 
-        public AuthController(SignInManager<QMGUser> signInManager)
+        public AuthController(SignInManager<QMGUser> signInManager, UserManager<QMGUser> userManager)
         {
             _signInManager = signInManager;
+            _userManager = userManager;
         }
 
         public IActionResult Login()
@@ -96,6 +98,37 @@ namespace QuoteMyGoods.Controllers.Auth
         public IActionResult Forbidden()
         {
             return View();
+        }
+
+        public IActionResult SignUp()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SignUp(QMGUser user)
+        {
+            if (await _userManager.FindByEmailAsync(user.Email) == null)
+            {
+                var newUser = new QMGUser()
+                {
+                    UserName = "noalgalex",
+                    Email = "noalgalex@gmail.com"
+                };
+
+                var createdUser = await _userManager.CreateAsync(newUser, user.PasswordHash);
+                if (createdUser.Succeeded)
+                {
+                    return RedirectToAction("Login",new { vm = new LoginViewModel { Username = "", Password = "" }, returnUrl = ""});
+                }else
+                {
+                    return RedirectToAction("Forbidden");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", new { vm = new LoginViewModel { Username = "", Password = "" }, returnUrl = "" });
+            }
         }
     }
 }
