@@ -8,6 +8,7 @@ using Xunit;
 using QuoteMyGoods.Models;
 using QuoteMyGoods.Controllers.Api;
 using AutoMapper;
+using Microsoft.AspNet.Http;
 
 namespace QuoteMyGoodsTests.Controllers
 {
@@ -28,7 +29,7 @@ namespace QuoteMyGoodsTests.Controllers
         {
             var mockRepo = new Mock<IQMGRepository>();
             var controller = new ProductsApiController(mockRepo.Object);
-
+            
             Assert.IsType<JsonResult>(controller.GetDots());           
         }
 

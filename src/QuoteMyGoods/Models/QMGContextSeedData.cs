@@ -30,6 +30,9 @@ namespace QuoteMyGoods.Models
             _roleManager = roleManager;
         }
 
+        /*
+         * Gets a hashed string
+         */
         private string GetHash(SHA1 sha1, string input)
         {
             byte[] data = sha1.ComputeHash(Encoding.UTF8.GetBytes(input));
@@ -43,6 +46,7 @@ namespace QuoteMyGoods.Models
 
         public async Task EnsureSeedDataAsync()
         {
+            //create the admin role
             if(await _roleManager.FindByNameAsync("Administrator") == null)
             {
                 adminRole = new IdentityRole { Name = "Administrator" };
@@ -50,6 +54,7 @@ namespace QuoteMyGoods.Models
                 await _roleManager.CreateAsync(adminRole);
             }
 
+            //create the pleb role
             if(await _roleManager.FindByNameAsync("Pleb") == null)
             {
                 plebRole = new IdentityRole { Name = "Pleb" };
@@ -57,7 +62,7 @@ namespace QuoteMyGoods.Models
                 await _roleManager.CreateAsync(plebRole);
             }
 
-
+            //creat user noalgalex
             if(await _userManager.FindByEmailAsync("noalgalex@gmail.com") == null)
             {
                 var hash = SHA1.Create();
@@ -67,23 +72,29 @@ namespace QuoteMyGoods.Models
                     Email = "noalgalex@gmail.com"
                 };
 
+                //get the admin role
                 var adminRole = await _roleManager.FindByNameAsync("Administrator");
+                //create a new identity role
                 var identityRole = new IdentityUserRole<string>()
                 {
                     RoleId = adminRole.Id,
                     UserId = user.Id
                 };
 
+                //add role to user
                 user.Roles.Add(identityRole);
 
+                //create a new claim
                 var jtdClaim = new IdentityUserClaim<string>()
                 {
                     ClaimType = "JoinTheDots",
                     ClaimValue = GetHash(hash, "noalgalex")
                 };
 
+                //add to user
                 user.Claims.Add(jtdClaim);
 
+                //save user to db
                 var createdUser =  await _userManager.CreateAsync(user, "Passw0rd!");
 
                 if (!createdUser.Succeeded)
