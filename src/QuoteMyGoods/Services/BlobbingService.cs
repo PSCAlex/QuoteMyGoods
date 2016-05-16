@@ -17,18 +17,17 @@ namespace QuoteMyGoods.Services
 
         public BlobbingService()
         {
-            //_blobStorage = new BlobStorage(Startup.Configuration["BlobStorage:ConnectionString"]);
+            _blobStorage = new BlobStorage(Startup.Configuration["BlobStorage:ConnectionString"]);
         }
 
         public void UploadBlob<T>(string fileReference, T file)
         {
-            //_blobStorage.uploadBlob(fileReference, file);
+            _blobStorage.uploadBlob(fileReference, file);
         }
 
         public T GetBlob<T>(string reference)
         {
-            //return _blobStorage.DownloadBlob<T>(reference);
-            return default(T);
+            return _blobStorage.DownloadBlob<T>(reference);
         }
     }
 }

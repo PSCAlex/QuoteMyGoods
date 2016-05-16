@@ -17,13 +17,13 @@ namespace QuoteMyGoods.Services
 
         public LoggingService()
         {
-            //_db = new MyDocumentDB("alexpscdb",Startup.Configuration["DocumentDB:ConnectionUri"], Startup.Configuration["DocumentDB:PrimaryKey"]);
+            _db = new MyDocumentDB("alexpscdb",Startup.Configuration["DocumentDB:ConnectionUri"], Startup.Configuration["DocumentDB:PrimaryKey"]);
         }
 
-        public async void Log(string userId, string process)
+        public void Log(string userId, string process)
         {
-            //var log = new LoggingDocument(userId, process);
-            //await _db.CreateDocumentIfNotExists("alexpscdb", "logging", log);           
+            var log = new LoggingDocument(userId, process);
+            _db.CreateDocumentIfNotExists("alexpscdb", "logging", log);           
         } 
     }
 }

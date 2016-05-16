@@ -21,7 +21,7 @@ namespace QuoteMyGoods.Models
             _context = context;
             _logger = logger;
             _currentProductCount = 0;
-            _redisCache = new RedisCache(/*Startup.Configuration["RedisCache:ConnectionString"]*/);
+            _redisCache = new RedisCache(Startup.Configuration["RedisCache:ConnectionString"]);
         }
         public void AddProduct(Product newProduct)
         {

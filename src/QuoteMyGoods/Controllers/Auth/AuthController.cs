@@ -1,14 +1,8 @@
 ﻿using Microsoft.AspNet.Authorization;
-using Microsoft.AspNet.Http.Authentication;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Mvc;
 using QuoteMyGoods.Models;
-using QuoteMyGoods.Services;
 using QuoteMyGoods.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace QuoteMyGoods.Controllers.Auth

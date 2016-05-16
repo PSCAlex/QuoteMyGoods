@@ -29,23 +29,21 @@ namespace QMGAzure
 
         public void SetString(string key, string value)
         {
-            //_cache.StringSetAsync(key, value);
+            _cache.StringSetAsync(key, value);
         }
 
         public async Task<string> GetString(string key)
         {
-            //return await _cache.StringGetAsync(key);
-            return default(string);
+            return await _cache.StringGetAsync(key);
         }
 
         public void SetObject(string key, object value)
         {
-            //_cache.StringSetAsync(key, JsonConvert.SerializeObject(value));
+            _cache.StringSetAsync(key, JsonConvert.SerializeObject(value));
         }
 
         public async Task<T> GetObject<T>(string key)
         {
-            /*
             var obj = await _cache.StringGetAsync(key);
             if(!obj.IsNull)
             {
@@ -53,10 +51,7 @@ namespace QMGAzure
             }else
             {
                 return default(T);
-            }
-            */
-            return default(T);
-            
+            }            
         }
 
         private static Lazy<ConnectionMultiplexer> lazyConnection = new Lazy<ConnectionMultiplexer>(() =>
