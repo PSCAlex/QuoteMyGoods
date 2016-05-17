@@ -10,7 +10,7 @@ namespace QuoteMyGoods.Models
 
     public static class PrincipleExtensions
     {
-        public static string GetJoinTheDots(ClaimsPrincipal principal)
+        public static string GetJoinTheDots(this ClaimsPrincipal principal)
         {
             return principal.FindFirstValue("JoinTheDots");
         }

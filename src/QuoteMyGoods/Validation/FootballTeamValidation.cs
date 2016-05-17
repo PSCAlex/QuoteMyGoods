@@ -2,14 +2,18 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNet.Mvc.ModelBinding.Validation;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace QuoteMyGoods.Validation
 {
     public class FootballTeamValidation : ValidationAttribute, IClientModelValidator
     {
+        public void AddValidation(ClientModelValidationContext context)
+        {
+            throw new NotImplementedException();
+        }
+
+        /*
         public IEnumerable<ModelClientValidationRule> GetClientValidationRules(ClientModelValidationContext context)
         {
             var rule = new ModelClientValidationRule("footballteam","People called Alex Logan must support Manchester United");
@@ -26,5 +30,6 @@ namespace QuoteMyGoods.Validation
             }
             return ValidationResult.Success;
         }
+        */
     }
 }

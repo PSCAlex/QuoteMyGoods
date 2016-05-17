@@ -12,6 +12,7 @@ using Newtonsoft.Json.Serialization;
 using QuoteMyGoods.Models;
 using QuoteMyGoods.Services;
 using System;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 //using AutoMapper;
 
 namespace QuoteMyGoods
@@ -72,8 +73,8 @@ namespace QuoteMyGoods
             services.AddLogging();
 
             services.AddEntityFramework()
-                .AddSqlServer()
-                .AddDbContext<QMGContext>();
+                .AddDbContext<QMGContext>(options => 
+                    options.UseSqlServer(Configuration.GetConnectionString("QMGContextConnection")));
 
             services.AddSingleton<ITableService,TableService>();
             services.AddTransient<QMGContextSeedData>();

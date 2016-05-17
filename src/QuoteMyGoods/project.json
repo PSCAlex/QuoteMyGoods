@@ -6,7 +6,7 @@
     },
     "AutoMapper": "4.0.4",
     "d3.TypeScript.DefinitelyTyped": "2.6.6",
-    "Microsoft.Extensions.Logging.Debug": "1.0.0-rc1-final",
+    "Microsoft.Extensions.Logging.Debug": "1.0.0-rc2-final",
     "Microsoft.AspNetCore.Authentication.Cookies": "1.0.0-rc2-final",
     "Microsoft.AspNetCore.Diagnostics": "1.0.0-rc2-final",
     "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "1.0.0-rc2-final",
@@ -39,11 +39,9 @@
       "type": "build"
     },
     "Microsoft.AspNetCore.Identity": "1.0.0-rc2-final",
-    "Microsoft.AspNet.Identity": "3.0.0-rc1-final",
-    "Microsoft.AspNet.Mvc.Abstractions": "6.0.0-rc1-final",
+    "Microsoft.AspNetCore.Mvc.Abstractions": "1.0.0-rc2-final",
     "Microsoft.AspNetCore.Session": "1.0.0-rc2-final",
-    "Microsoft.AspNet.IISPlatformHandler": "1.0.0-rc1-final",
-    "EntityFramework.MicrosoftSqlServer": "7.0.0-rc1-final"
+    "Microsoft.EntityFrameworkCore": "1.0.0-rc2-final"
   },
 
   "tools": {
