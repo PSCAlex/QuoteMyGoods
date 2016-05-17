@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using System.Security.Claims;
 
 namespace QuoteMyGoods.Models
@@ -10,7 +10,7 @@ namespace QuoteMyGoods.Models
 
     public static class PrincipleExtensions
     {
-        public static string GetJoinTheDots(this ClaimsPrincipal principal)
+        public static string GetJoinTheDots(ClaimsPrincipal principal)
         {
             return principal.FindFirstValue("JoinTheDots");
         }

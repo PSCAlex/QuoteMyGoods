@@ -1,5 +1,4 @@
-﻿using QMGAzure;
-using QuoteMyGoods.Common;
+﻿using QuoteMyGoods.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,17 +12,17 @@ namespace QuoteMyGoods.Services
     }
     public class LoggingService : ILoggingService
     {
-        private MyDocumentDB _db { get; set; }
+        //private MyDocumentDB _db { get; set; }
 
         public LoggingService()
         {
-            _db = new MyDocumentDB("alexpscdb",Startup.Configuration["DocumentDB:ConnectionUri"], Startup.Configuration["DocumentDB:PrimaryKey"]);
+            //_db = new MyDocumentDB("alexpscdb",Startup.Configuration["DocumentDB:ConnectionUri"], Startup.Configuration["DocumentDB:PrimaryKey"]);
         }
 
         public void Log(string userId, string process)
         {
-            var log = new LoggingDocument(userId, process);
-            _db.CreateDocumentIfNotExists("alexpscdb", "logging", log);           
+            //var log = new LoggingDocument(userId, process);
+           // _db.CreateDocumentIfNotExists("alexpscdb", "logging", log);           
         } 
     }
 }

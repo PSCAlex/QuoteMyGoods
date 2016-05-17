@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNet.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using QuoteMyGoods.Models;
 using System;
 using System.Collections.Generic;

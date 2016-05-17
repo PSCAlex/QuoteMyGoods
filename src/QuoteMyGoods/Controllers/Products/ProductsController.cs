@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNet.Authorization;
-using Microsoft.AspNet.Http;
-using Microsoft.AspNet.Mvc;
-using Microsoft.AspNet.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using QuoteMyGoods.Models;
 using QuoteMyGoods.Services;
 using System;
@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
 
 namespace QuoteMyGoods.Controllers.Products
 {
@@ -19,18 +20,20 @@ namespace QuoteMyGoods.Controllers.Products
         private IBasketService _basketService;
         private ILoggingService _logger;
         private IRedisService _redisService;
+        private UserManager<QMGUser> _userManager;
 
-        public ProductsController(IQMGRepository repository, IBasketService basketService,ILoggingService logger,IRedisService redisService)
+        public ProductsController(IQMGRepository repository, IBasketService basketService,ILoggingService logger,IRedisService redisService, UserManager<QMGUser> userManager)
         {
             _repository = repository;
             _basketService = basketService;
             _logger = logger;
             _redisService = redisService;
+            _userManager = userManager;
         }
 
         public async Task<IActionResult> Products(string orderbyList, string categoryList, int? itemsPerPage, int? pageNumber)
         {
-            _logger.Log(HttpContext.User.GetUserId(), "GetProducts");
+            _logger.Log(_userManager.GetUserId(HttpContext.User), "GetProducts");
             IEnumerable<Product> products = await _repository.GetProductsByCategory(categoryList);
 
             if (string.IsNullOrWhiteSpace(itemsPerPage.ToString()))
@@ -68,7 +71,7 @@ namespace QuoteMyGoods.Controllers.Products
 
         private void AddInfoToSession(int itemsPerPage, int pageNumber)
         {
-            _logger.Log(HttpContext.User.GetUserId(), "AddInfoToSession");
+            _logger.Log(_userManager.GetUserId(HttpContext.User), "AddInfoToSession");
             HttpContext.Session.SetInt32("itemsPerPage", itemsPerPage);
             HttpContext.Session.SetInt32("pageNumber", pageNumber);
         }
@@ -97,17 +100,17 @@ namespace QuoteMyGoods.Controllers.Products
 
         public async Task<IActionResult> Details(int? id)
         {
-            _logger.Log(HttpContext.User.GetUserId(), "GetProductDetails");
+            _logger.Log(_userManager.GetUserId(HttpContext.User), "GetProductDetails");
             if (id == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
 
             var product = await _repository.GetProductById(id);
 
             if (product == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
 
             return View(product);
@@ -115,16 +118,16 @@ namespace QuoteMyGoods.Controllers.Products
 
         public async Task<IActionResult> Delete(int? id)
         {
-            _logger.Log(HttpContext.User.GetUserId(), "DeleteProducts");
+            _logger.Log(_userManager.GetUserId(HttpContext.User), "DeleteProducts");
             if (id == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
 
             Product product = await _repository.GetProductById(id);
             if (product == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
 
             return View(product);
@@ -133,7 +136,7 @@ namespace QuoteMyGoods.Controllers.Products
         [HttpPost]
         public IActionResult DeleteConfirmed(int id)
         {
-            _logger.Log(HttpContext.User.GetUserId(), "DeleteProductsConfirmed");
+            _logger.Log(_userManager.GetUserId(HttpContext.User), "DeleteProductsConfirmed");
             _repository.DeleteProduct(id);
             _repository.SaveAll();
             return RedirectToAction("Products");
@@ -147,7 +150,7 @@ namespace QuoteMyGoods.Controllers.Products
         [HttpPost]
         public IActionResult Create(Product product)
         {
-            _logger.Log(HttpContext.User.GetUserId(), "CreateProduct");
+            _logger.Log(_userManager.GetUserId(HttpContext.User), "CreateProduct");
             if (ModelState.IsValid)
             {
                 _repository.AddProduct(product);
@@ -159,16 +162,16 @@ namespace QuoteMyGoods.Controllers.Products
 
         public async Task<IActionResult> Edit(int? id)
         {
-            _logger.Log(HttpContext.User.GetUserId(), "GetEditProduct");
+            _logger.Log(_userManager.GetUserId(HttpContext.User), "GetEditProduct");
             if (id == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
 
             Product product = await _repository.GetProductById(id);
             if (product == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
             return View(product);
         }
@@ -176,7 +179,7 @@ namespace QuoteMyGoods.Controllers.Products
         [HttpPost]
         public IActionResult Edit(Product product)
         {
-            _logger.Log(HttpContext.User.GetUserId(), "EditProduct");
+            _logger.Log(_userManager.GetUserId(HttpContext.User), "EditProduct");
             if (ModelState.IsValid)
             {
                 _repository.UpdateProduct(product);

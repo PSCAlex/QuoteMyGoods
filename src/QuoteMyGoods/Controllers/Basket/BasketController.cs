@@ -1,5 +1,6 @@
-﻿using Microsoft.AspNet.Authorization;
-using Microsoft.AspNet.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using QuoteMyGoods.Common;
 using QuoteMyGoods.Models;
 using QuoteMyGoods.Services;
@@ -18,13 +19,15 @@ namespace QuoteMyGoods.Controllers.Basket
         IQMGRepository _repository;
         ILoggingService _logger;
         IBlobbingService _blobber;
+        UserManager<QMGUser> _userManager;
 
-        public BasketController(IBasketService basketService, IQMGRepository repository,ILoggingService logger, IBlobbingService blobber)
+        public BasketController(IBasketService basketService, IQMGRepository repository,ILoggingService logger, IBlobbingService blobber, UserManager<QMGUser> userManager)
         {
             _basketService = basketService;
             _repository = repository;
             _logger = logger;
             _blobber = blobber;
+            _userManager = userManager;
         }
         
         public IActionResult Basket()
@@ -39,19 +42,19 @@ namespace QuoteMyGoods.Controllers.Basket
         {
             if (id == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
 
             var product = await _repository.GetProductById(id);
 
             if (product == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
             else
             {
                 _basketService.AddToBasket(product);
-                _logger.Log(HttpContext.User.GetUserId(), "AddToBasket");
+                _logger.Log(_userManager.GetUserId(HttpContext.User), "AddToBasket");
                 return RedirectToAction("Products", "Products", new { orderbyList = orderbyList, categoryList = categoryList, pageNumber = pageNumber, itemsPerPage = itemsPerPage });
             }
         }
@@ -61,12 +64,12 @@ namespace QuoteMyGoods.Controllers.Basket
         {
             if (id == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
             else
             {
                 _basketService.RemoveFromBasket((int)id);
-                _logger.Log(HttpContext.User.GetUserId(), "RemoveFromBakset");
+                _logger.Log(_userManager.GetUserId(HttpContext.User), "RemoveFromBakset");
                 return RedirectToAction("Basket");
             }
         }
@@ -76,12 +79,12 @@ namespace QuoteMyGoods.Controllers.Basket
         {
             if(id == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
             else
             {
                 _basketService.AddQuantity((int)id);
-                _logger.Log(HttpContext.User.GetUserId(), "AddQuantity");
+                _logger.Log(_userManager.GetUserId(HttpContext.User), "AddQuantity");
                 return RedirectToAction("Basket");
             }
         }
@@ -91,12 +94,12 @@ namespace QuoteMyGoods.Controllers.Basket
         {
             if(id == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
             else
             {
                 _basketService.MinusQuantity((int)id);
-                _logger.Log(HttpContext.User.GetUserId(), "MinusQuantity");
+                _logger.Log(_userManager.GetUserId(HttpContext.User), "MinusQuantity");
                 return RedirectToAction("Basket");
             }
         }
@@ -105,14 +108,14 @@ namespace QuoteMyGoods.Controllers.Basket
         public IActionResult ClearBasket()
         {
             _basketService.ClearBasket();
-            _logger.Log(HttpContext.User.GetUserId(), "ClearBasket");
+            _logger.Log(_userManager.GetUserId(HttpContext.User), "ClearBasket");
             return RedirectToAction("Basket");
         }
 
         [HttpPost]
         public IActionResult SaveBasket()
         {
-            var reference = HttpContext.User.GetUserId() + "basketBlob";
+            var reference = _userManager.GetUserId(HttpContext.User) + "basketBlob";
             _blobber.UploadBlob(reference, _basketService.GetBasket());
             return RedirectToAction("Basket");
         }
@@ -120,7 +123,7 @@ namespace QuoteMyGoods.Controllers.Basket
         [HttpPost]
         public IActionResult LoadBasket()
         {
-            var reference = HttpContext.User.GetUserId() + "basketBlob";
+            var reference = _userManager.GetUserId(HttpContext.User) + "basketBlob";
             _basketService.SetBasket(_blobber.GetBlob<Dictionary<int, BasketItem>>(reference));
             return RedirectToAction("Basket");
         }

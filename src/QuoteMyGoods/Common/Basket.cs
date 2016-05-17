@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Http;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Newtonsoft.Json;
 using QuoteMyGoods.Models;
 using System;
@@ -20,13 +21,16 @@ namespace QuoteMyGoods.Common
 
         private string UserId { get; set; }
 
+        private UserManager<QMGUser> _userManager;
+
         public Basket(){}
 
-        public Basket(IHttpContextAccessor context)
+        public Basket(IHttpContextAccessor context, UserManager<QMGUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
 
-            UserId = _context.HttpContext.User.GetUserId() ?? "tempKey";
+            UserId = _userManager.GetUserId(_context.HttpContext.User);
 
             try {
                 var basket = _context.HttpContext.Session.GetObjectFromJson<Basket>(UserId);

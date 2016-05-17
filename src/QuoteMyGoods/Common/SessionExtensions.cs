@@ -1,11 +1,5 @@
-﻿using Microsoft.AspNet.Http;
-using Microsoft.AspNet.Http.Features;
+﻿using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
-using QMGAzure;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace QuoteMyGoods.Common
 {

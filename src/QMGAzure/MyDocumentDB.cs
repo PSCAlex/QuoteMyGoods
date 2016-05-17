@@ -1,4 +1,5 @@
-﻿using System;
+﻿/*
+using System;
 using System.Threading.Tasks;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
@@ -115,19 +116,7 @@ namespace QMGAzure
             return query.ToList().OrderByDescending(l => l.Time.Date).ThenByDescending(l => l.Time.TimeOfDay);
         }
     }
-
-    public class LoggingDocument
-    {
-        public string id { get; set; }
-        public string UserId { get; set; }
-        public string Process { get; set; }
-        public DateTime Time { get; set; }
-
-        public LoggingDocument(string userId, string process)
-        {
-            UserId = userId;
-            Process = process;
-            Time = DateTime.Now.ToUniversalTime();
-        }
-    }
+    */
+/*
 }
+*/

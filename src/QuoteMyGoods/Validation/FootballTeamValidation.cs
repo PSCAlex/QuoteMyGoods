@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNet.Mvc.ModelBinding.Validation;
-using QuoteMyGoods.Models;
+﻿using QuoteMyGoods.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNet.Mvc.ModelBinding.Validation;
 
 namespace QuoteMyGoods.Validation
 {

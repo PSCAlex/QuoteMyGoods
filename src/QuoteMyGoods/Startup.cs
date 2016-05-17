@@ -1,20 +1,17 @@
-﻿using System;
-using Microsoft.AspNet.Builder;
-using Microsoft.AspNet.Hosting;
-using Microsoft.Extensions.DependencyInjection;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.PlatformAbstractions;
-using Newtonsoft.Json.Serialization;
-using Microsoft.AspNet.Identity.EntityFramework;
-using QuoteMyGoods.Models;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Serialization;
+using QuoteMyGoods.Models;
 using QuoteMyGoods.Services;
-using AutoMapper;
-using Microsoft.AspNet.Authorization;
-using Microsoft.AspNet.Mvc.Filters;
-using Microsoft.Extensions.Caching.Distributed;
-using Microsoft.Extensions.Caching.Redis;
-using QMGAzure;
+using System;
 //using AutoMapper;
 
 namespace QuoteMyGoods
@@ -23,10 +20,10 @@ namespace QuoteMyGoods
     {
         public static IConfigurationRoot Configuration;
 
-        public Startup(IApplicationEnvironment appEnv)
+        public Startup(IHostingEnvironment appEnv)
         {
             var builder = new ConfigurationBuilder()
-                .SetBasePath(appEnv.ApplicationBasePath)
+                .SetBasePath(appEnv.ContentRootPath)
                 .AddJsonFile("config.json")
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
@@ -55,7 +52,7 @@ namespace QuoteMyGoods
                     }));
                     */
 
-            services.AddCaching();
+            //services.AddCaching();
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(30);
@@ -116,11 +113,6 @@ namespace QuoteMyGoods
             });
 
             await seeder.EnsureSeedDataAsync();
-
-            app.UseIISPlatformHandler();
-        }
-
-        // Entry point for the application.
-        public static void Main(string[] args) => WebApplication.Run<Startup>(args);   
+        }  
     }
 }

@@ -1,6 +1,4 @@
-﻿using QMGAzure;
-
-namespace QuoteMyGoods.Services
+﻿namespace QuoteMyGoods.Services
 {
     public interface IBlobbingService
     {
@@ -9,21 +7,22 @@ namespace QuoteMyGoods.Services
     }
     public class BlobbingService : IBlobbingService
     {
-        private BlobStorage _blobStorage;
+        //private BlobStorage _blobStorage;
 
         public BlobbingService()
         {
-            _blobStorage = new BlobStorage(Startup.Configuration["BlobStorage:ConnectionString"]);
+           // _blobStorage = new BlobStorage(Startup.Configuration["BlobStorage:ConnectionString"]);
         }
 
         public void UploadBlob<T>(string fileReference, T file)
         {
-            _blobStorage.uploadBlob(fileReference, file);
+            //_blobStorage.uploadBlob(fileReference, file);
         }
 
         public T GetBlob<T>(string reference)
         {
-            return _blobStorage.DownloadBlob<T>(reference);
+            //return _blobStorage.DownloadBlob<T>(reference);
+            return default(T);
         }
     }
 }

@@ -1,19 +1,22 @@
 ﻿using System.Collections.Generic;
 using QuoteMyGoods.Models;
 using QuoteMyGoods.Common;
-using Microsoft.AspNet.Http;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 
 namespace QuoteMyGoods.Services
 {
     public class BasketService : IBasketService
     {
         private readonly IHttpContextAccessor _context;
+        private readonly UserManager<QMGUser> _userManager;
         private Basket _basket;
 
-        public BasketService(IHttpContextAccessor context)
+        public BasketService(IHttpContextAccessor context, UserManager<QMGUser> userManager)
         {
             _context = context;
-            _basket = new Basket(_context);
+            _userManager = userManager;
+            _basket = new Basket(_context,_userManager);
         }
 
         public void AddQuantity(int id)

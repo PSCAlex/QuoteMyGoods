@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using Microsoft.AspNet.Http;
-using Microsoft.AspNet.Mvc;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using QuoteMyGoods.Models;
 using System;
 using System.Collections.Generic;
