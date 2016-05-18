@@ -8,9 +8,10 @@ using QuoteMyGoods.Models;
 namespace QuoteMyGoods.Migrations
 {
     [DbContext(typeof(QMGContext))]
-    partial class QMGContextModelSnapshot : ModelSnapshot
+    [Migration("20160518095147_rc2")]
+    partial class rc2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.0-rc2-20901")
@@ -143,7 +144,7 @@ namespace QuoteMyGoods.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Product");
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("QuoteMyGoods.Models.QMGUser", b =>
@@ -159,6 +160,8 @@ namespace QuoteMyGoods.Migrations
                         .HasAnnotation("MaxLength", 256);
 
                     b.Property<bool>("EmailConfirmed");
+
+                    b.Property<string>("JoinTheDotsKey");
 
                     b.Property<bool>("LockoutEnabled");
 

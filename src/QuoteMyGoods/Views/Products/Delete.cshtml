@@ -9,7 +9,7 @@
 <h3>Are you sure you want to delete this?</h3>
 
 <div class="row">
-    <div>@Component.Invoke("ProductDelete", Model)</div>
+    <div>@await Component.InvokeAsync("ProductDelete",new { product = Model })</div>
 </div>
 
 <form asp-controller="Products" asp-action="DeleteConfirmed" asp-route-id="@Model.Id" method="post">

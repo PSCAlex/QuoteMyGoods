@@ -43,6 +43,9 @@ namespace QuoteMyGoods
                     opt.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 });
 
+            services.AddDbContext<QMGContext>(options =>
+                options.UseSqlServer(Configuration["Data:QMGContextConnection"]));
+
             /*
             services.AddSingleton<IDistributedCache>(
                 serviceProvider =>
@@ -53,7 +56,7 @@ namespace QuoteMyGoods
                     }));
                     */
 
-            //services.AddCaching();
+            services.AddMemoryCache();
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(30);
@@ -72,9 +75,7 @@ namespace QuoteMyGoods
 
             services.AddLogging();
 
-            services.AddEntityFramework()
-                .AddDbContext<QMGContext>(options => 
-                    options.UseSqlServer(Configuration.GetConnectionString("QMGContextConnection")));
+            
 
             services.AddSingleton<ITableService,TableService>();
             services.AddTransient<QMGContextSeedData>();

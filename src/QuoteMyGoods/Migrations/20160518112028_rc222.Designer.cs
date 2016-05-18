@@ -8,9 +8,10 @@ using QuoteMyGoods.Models;
 namespace QuoteMyGoods.Migrations
 {
     [DbContext(typeof(QMGContext))]
-    partial class QMGContextModelSnapshot : ModelSnapshot
+    [Migration("20160518112028_rc222")]
+    partial class rc222
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.0-rc2-20901")

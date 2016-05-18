@@ -46,6 +46,16 @@ namespace QuoteMyGoods.Models
 
         public async Task EnsureSeedDataAsync()
         {
+            /*
+            var a = await _roleManager.FindByNameAsync("Administrator");
+            var b = await _roleManager.FindByNameAsync("Pleb");
+            try
+            {
+                var c = await _userManager.FindByEmailAsync("noalgalex@gmail.com");
+            }catch(AggregateException e)
+            {
+                Console.Write(e.ToString());
+            }*/
             //create the admin role
             if(await _roleManager.FindByNameAsync("Administrator") == null)
             {

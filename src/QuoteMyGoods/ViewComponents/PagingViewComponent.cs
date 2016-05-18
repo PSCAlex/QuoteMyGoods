@@ -16,7 +16,7 @@ namespace QuoteMyGoods.ViewComponents
         {
             _repository = repository;
         }
-        public IViewComponentResult Invoke()
+        public async Task<IViewComponentResult> InvokeAsync()
         {
             var itemsPerPage = HttpContext.Request.Query["itemsPerPage"];
 

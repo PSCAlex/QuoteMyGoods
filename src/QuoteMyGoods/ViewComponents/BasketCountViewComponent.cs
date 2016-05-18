@@ -15,7 +15,7 @@ namespace QuoteMyGoods.ViewComponents
         {
             _basketService = basketService;
         }
-        public IViewComponentResult Invoke()
+        public async Task<IViewComponentResult> InvokeAsync()
         {
             ViewBag.Count = _basketService.GetBasketCount();
             return View();

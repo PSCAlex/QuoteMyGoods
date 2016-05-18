@@ -8,7 +8,7 @@ namespace QuoteMyGoods.ViewComponents
 {
     public class CreateModalViewComponent:ViewComponent
     {
-        public IViewComponentResult Invoke()
+        public async Task<IViewComponentResult> InvokeAsync()
         {
             return View();
         }

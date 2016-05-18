@@ -43,7 +43,7 @@
         <div class="row">
             @foreach (var item in Model.Values)
             {
-                <div>@Component.Invoke("BasketItem", item)</div>
+                <div>@await Component.InvokeAsync("BasketItem", new { basketItem = item })</div>
             }
         </div>
         <hr />

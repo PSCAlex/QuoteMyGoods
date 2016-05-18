@@ -5,5 +5,5 @@
 }
 
 <div>
-    @Component.Invoke("ProductDetails",Model)
+    @await Component.InvokeAsync("ProductDetails", new { product = Model })
 </div>

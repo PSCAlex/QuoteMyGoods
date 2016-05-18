@@ -41,7 +41,7 @@ namespace QuoteMyGoods.Models
         {
             //var cachedProducts = await _redisCache.GetObject<List<Product>>("CachedProducts");
             var cachedProducts = Enumerable.Empty<Product>();
-            if(cachedProducts == null || cachedProducts.Count() > 0)
+            if(cachedProducts == null || cachedProducts.Count() == 0)
             {
                 var products = _context.Products.OrderBy(p => p.Name).ToList();
                 _currentProductCount = products.Count;
@@ -60,7 +60,7 @@ namespace QuoteMyGoods.Models
         {
             //var cachedCategories = await _redisCache.GetObject<List<string>>("CachedCategories");
             var cachedCategories = Enumerable.Empty<string>();
-            if(cachedCategories == null || cachedCategories.Count() > 0)
+            if(cachedCategories == null || cachedCategories.Count() == 0)
             {
                 var categoryQuery = from p in _context.Products
                                     orderby p.Category
@@ -79,7 +79,7 @@ namespace QuoteMyGoods.Models
         {
             //var cachedProducts = await _redisCache.GetObject<List<Product>>("CachedProducts");
             var cachedProducts = Enumerable.Empty<Product>();
-            if(cachedProducts == null || cachedProducts.Count() > 0)
+            if(cachedProducts == null || cachedProducts.Count() == 0)
             {
                 return _context.Products.FirstOrDefault(p => p.Id == id);
             }else
@@ -107,7 +107,7 @@ namespace QuoteMyGoods.Models
         {
             //var cachedProducts = await _redisCache.GetObject<List<Product>>("CachedProducts");
             var cachedProducts = Enumerable.Empty<Product>();
-            if (cachedProducts == null || cachedProducts.Count() > 0)
+            if (cachedProducts == null || cachedProducts.Count() == 0)
             {
                 if (string.IsNullOrEmpty(categoryName))
                 {

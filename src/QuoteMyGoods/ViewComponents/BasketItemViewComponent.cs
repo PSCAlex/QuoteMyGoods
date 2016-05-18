@@ -10,7 +10,7 @@ namespace QuoteMyGoods.ViewComponents
 {
     public class BasketItemViewComponent:ViewComponent
     {
-        public IViewComponentResult Invoke(BasketItem basketItem)
+        public async Task<IViewComponentResult> InvokeAsync(BasketItem basketItem)
         {
             return View(basketItem);
         }

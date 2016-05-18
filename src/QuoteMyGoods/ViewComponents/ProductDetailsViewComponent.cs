@@ -9,7 +9,7 @@ namespace QuoteMyGoods.ViewComponents
 {
     public class ProductDetailsViewComponent:ViewComponent
     {
-        public IViewComponentResult Invoke(Product product)
+        public async Task<IViewComponentResult> InvokeAsync(Product product)
         {
             return View(product);
         }

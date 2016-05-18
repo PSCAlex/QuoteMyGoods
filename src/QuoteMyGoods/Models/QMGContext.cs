@@ -5,21 +5,18 @@ namespace QuoteMyGoods.Models
 {
     public class QMGContext:IdentityDbContext<QMGUser>
     {
-        public QMGContext()
-        {
-            Database.EnsureCreated();
-        }
+        public QMGContext(DbContextOptions<QMGContext> options)
+            : base(options) { }
 
         public DbSet<Product> Products { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        protected override void OnModelCreating(ModelBuilder builder)
         {
-            var connString = Startup.Configuration["Data:QMGContextConnection"];
-            //var connString = Startup.Configuration["Data:AzzureConnection"];
-
-            optionsBuilder.UseSqlServer(connString);
-
-            base.OnConfiguring(optionsBuilder);
+            foreach (var entity in builder.Model.GetEntityTypes())
+            {
+                entity.Relational().TableName = entity.ClrType.Name;
+            }
+            base.OnModelCreating(builder);
         }
     }
 }
