@@ -73,8 +73,6 @@ namespace QuoteMyGoods
 
             services.AddLogging();
 
-            
-
             services.AddSingleton<ITableService,TableService>();
             services.AddTransient<QMGContextSeedData>();
             services.AddScoped<IQMGRepository, QMGRepository>();
@@ -85,10 +83,8 @@ namespace QuoteMyGoods
             services.AddSingleton<IRedisService, RedisService>();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public async void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory, QMGContextSeedData seeder)
         {
-            //change to debug in production env
             loggerFactory.AddDebug(LogLevel.Information);
             app.UseDeveloperExceptionPage();
 
