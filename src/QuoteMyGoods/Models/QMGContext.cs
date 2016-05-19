@@ -6,7 +6,10 @@ namespace QuoteMyGoods.Models
     public class QMGContext:IdentityDbContext<QMGUser>
     {
         public QMGContext(DbContextOptions<QMGContext> options)
-            : base(options) { }
+            : base(options)
+        {
+            Database.EnsureCreated();
+        }
 
         public DbSet<Product> Products { get; set; }
 

@@ -12,8 +12,6 @@ using Newtonsoft.Json.Serialization;
 using QuoteMyGoods.Models;
 using QuoteMyGoods.Services;
 using System;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-//using AutoMapper;
 
 namespace QuoteMyGoods
 {
