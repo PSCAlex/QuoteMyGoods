@@ -39,29 +39,28 @@ namespace QuoteMyGoods.Models
 
         public async Task<IEnumerable<Product>> GetAllProducts()
         {
-            //var cachedProducts = await _redisCache.GetObject<List<Product>>("CachedProducts");
-            var cachedProducts = Enumerable.Empty<Product>();
+            /*
+            var cachedProducts = await _redisCache.GetObject<List<Product>>("CachedProducts");
             if(cachedProducts == null || cachedProducts.Count() == 0)
-            {
+            {*/
                 var products = _context.Products.OrderBy(p => p.Name).ToList();
                 _currentProductCount = products.Count;
                 //_redisCache.SetObject("CachedProducts", products);
                 return products;
-            }else
+            /*}else
             {
                 _currentProductCount = cachedProducts.Count();
                 return cachedProducts;
-            }
+            }*/
 
             
         }
 
         public async Task<SelectList> GetCategories()
         {
-            //var cachedCategories = await _redisCache.GetObject<List<string>>("CachedCategories");
-            var cachedCategories = Enumerable.Empty<string>();
+            /*var cachedCategories = await _redisCache.GetObject<List<string>>("CachedCategories");
             if(cachedCategories == null || cachedCategories.Count() == 0)
-            {
+            {*/
                 var categoryQuery = from p in _context.Products
                                     orderby p.Category
                                     select p.Category;
@@ -69,46 +68,43 @@ namespace QuoteMyGoods.Models
                 categoryList.AddRange(categoryQuery.Distinct());
                 //_redisCache.SetObject("CachedCategories", categoryList);
                 return new SelectList(categoryList);
-            }else
+            /*}else
             {
                 return new SelectList(cachedCategories);
-            }
+            }*/
         }
 
         public async Task<Product> GetProductById(int? id)
         {
-            //var cachedProducts = await _redisCache.GetObject<List<Product>>("CachedProducts");
-            var cachedProducts = Enumerable.Empty<Product>();
+            /*var cachedProducts = await _redisCache.GetObject<List<Product>>("CachedProducts");
             if(cachedProducts == null || cachedProducts.Count() == 0)
-            {
+            {*/
                 return _context.Products.FirstOrDefault(p => p.Id == id);
-            }else
+            /*}else
             {
                 return cachedProducts.FirstOrDefault(p => p.Id == id);
-            }
+            }*/
         }
 
         public async Task<int> GetProductCount()
         {
-            //var cachedCount = await _redisCache.GetString("CachedCount");
-            string cachedCount = null;
+            /*var cachedCount = await _redisCache.GetString("CachedCount");
             if (cachedCount == null)
-            {
+            {*/
                 //_redisCache.SetString("CachedCount", _context.Products.Count().ToString());
                 return _context.Products.Count();
-            }
+            /*}
             else
             {
                 return int.Parse(cachedCount);
-            }
+            }*/
         }
 
         public async Task<IEnumerable<Product>> GetProductsByCategory(string categoryName)
         {
-            //var cachedProducts = await _redisCache.GetObject<List<Product>>("CachedProducts");
-            var cachedProducts = Enumerable.Empty<Product>();
+            /*var cachedProducts = await _redisCache.GetObject<List<Product>>("CachedProducts");
             if (cachedProducts == null || cachedProducts.Count() == 0)
-            {
+            {*/
                 if (string.IsNullOrEmpty(categoryName))
                 {
                     var products = _context.Products.OrderBy(p => p.Name).ToList();
@@ -124,7 +120,7 @@ namespace QuoteMyGoods.Models
                     //_redisCache.SetString("CachedCount", _currentProductCount.ToString());
                     return products;
                 }
-            }
+            /*}
             else
             {
                 if (string.IsNullOrEmpty(categoryName))
@@ -139,7 +135,7 @@ namespace QuoteMyGoods.Models
                     //_redisCache.SetString("CachedCount", _currentProductCount.ToString());
                     return cachedProducts.Where(p => p.Category == categoryName).ToList();
                 }
-            }
+            }*/
         }
 
         public bool SaveAll() =>  _context.SaveChanges() > 0;
