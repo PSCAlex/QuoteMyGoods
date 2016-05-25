@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using QuoteMyGoods.Models;
 using QuoteMyGoods.ViewModels;
@@ -12,11 +13,13 @@ namespace QuoteMyGoods.Controllers.Auth
     {
         private SignInManager<QMGUser> _signInManager;
         private UserManager<QMGUser> _userManager;
+        private RoleManager<IdentityRole> _roleManager;
 
-        public AuthController(SignInManager<QMGUser> signInManager, UserManager<QMGUser> userManager)
+        public AuthController(SignInManager<QMGUser> signInManager, UserManager<QMGUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _signInManager = signInManager;
             _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         public IActionResult Login()
@@ -100,29 +103,51 @@ namespace QuoteMyGoods.Controllers.Auth
         }
 
         [HttpPost]
-        public async Task<IActionResult> SignUp(QMGUser user)
+        public async Task<IActionResult> SignUp(SignupViewModel user)
         {
-            if (await _userManager.FindByEmailAsync(user.Email) == null)
+            if (ModelState.IsValid)
             {
-                var newUser = new QMGUser()
+                if (await _userManager.FindByEmailAsync(user.Username) == null)
                 {
-                    UserName = "noalgalex",
-                    Email = "noalgalex@gmail.com"
-                };
+                    var newUser = new QMGUser()
+                    {
+                        UserName = user.Username,
+                        Email = user.Username
+                    };
 
-                var createdUser = await _userManager.CreateAsync(newUser, user.PasswordHash);
-                if (createdUser.Succeeded)
+                    var plebRole = await _roleManager.FindByNameAsync("Pleb");
+                    newUser.Roles.Add(new IdentityUserRole<string>()
+                    {
+                        RoleId = plebRole.Id,
+                        UserId = newUser.Id
+                    });
+
+                    var createdUser = await _userManager.CreateAsync(newUser, user.Password1);
+                    if (createdUser.Succeeded)
+                    {
+                        var signInResult = await _signInManager.PasswordSignInAsync(user.Username, user.Password1, true, false);
+
+                        if (signInResult.Succeeded)
+                        {
+                            return RedirectToAction("Products", "Products");
+                        }
+                        else
+                        {
+                            return RedirectToAction("Forbidden");
+                        }
+                    }
+                    else
+                    {
+                        return RedirectToAction("Forbidden");
+                    }
+                }
+                else
                 {
-                    return RedirectToAction("Login",new { vm = new LoginViewModel { Username = "", Password = "" }, returnUrl = ""});
-                }else
-                {
-                    return RedirectToAction("Forbidden");
+                    return RedirectToAction("Login");
                 }
             }
-            else
-            {
-                return RedirectToAction("Login", new { vm = new LoginViewModel { Username = "", Password = "" }, returnUrl = "" });
-            }
+
+            return View();
         }
     }
 }
