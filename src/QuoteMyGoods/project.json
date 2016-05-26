@@ -40,7 +40,9 @@
     "Microsoft.AspNetCore.Identity": "1.0.0-rc2-final",
     "Microsoft.AspNetCore.Mvc.Abstractions": "1.0.0-rc2-final",
     "Microsoft.AspNetCore.Session": "1.0.0-rc2-final",
-    "Microsoft.EntityFrameworkCore": "1.0.0-rc2-final"
+    "Microsoft.EntityFrameworkCore": "1.0.0-rc2-final",
+    "QuoteMyGoods.Business": "1.0.0-*",
+    "QuoteMyGoods.Data": "1.0.0-*"
   },
 
   "tools": {

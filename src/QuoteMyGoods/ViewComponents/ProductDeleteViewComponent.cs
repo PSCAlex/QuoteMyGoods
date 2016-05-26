@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using QuoteMyGoods.Models;
+using QuoteMyGoods.Areas.Products.Models;
 using System.Threading.Tasks;
 
 namespace QuoteMyGoods.ViewComponents
@@ -7,7 +7,7 @@ namespace QuoteMyGoods.ViewComponents
 
     public class ProductDeleteViewComponent:ViewComponent
     {
-        public async Task<IViewComponentResult> InvokeAsync(Product product)
+        public async Task<IViewComponentResult> InvokeAsync(ProductVM product)
         {
             return View(product);
         }

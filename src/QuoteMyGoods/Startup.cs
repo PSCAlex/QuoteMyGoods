@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -9,11 +8,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Serialization;
-using QuoteMyGoods.Models;
-using QuoteMyGoods.Services;
+using QuoteMyGoods.Data;
+using QuoteMyGoods.Data.Products;
 using System;
 
-namespace QuoteMyGoods
+namespace QuoteMyGoods.Web
 {
     public class Startup
     {
@@ -26,6 +25,9 @@ namespace QuoteMyGoods
                 .AddJsonFile("config.json")
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
+
+            Business.ModelMappings.Configure();
+            ModelMappings.Configure();
         }
 
         public void ConfigureServices(IServiceCollection services)
@@ -41,7 +43,7 @@ namespace QuoteMyGoods
                     opt.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 });
 
-            services.AddDbContext<QMGContext>(options =>
+            services.AddDbContext<ProductContext>(options =>
                 options.UseSqlServer(Configuration["Data:QMGContextConnection"]));
 
             /*
@@ -61,7 +63,7 @@ namespace QuoteMyGoods
                 options.CookieName = "QMG";
             });
 
-            services.AddIdentity<QMGUser, IdentityRole>(config =>
+            services.AddIdentity<IdentityUser, IdentityRole>(config =>
              {
                  config.User.RequireUniqueEmail = true;
                  config.Password.RequiredLength = 8;
@@ -69,18 +71,12 @@ namespace QuoteMyGoods
                  config.Cookies.ApplicationCookie.AccessDeniedPath = "/Auth/Unauthorized";
                  config.Cookies.ApplicationCookie.AutomaticAuthenticate = true;
              })
-            .AddEntityFrameworkStores<QMGContext>();
+            .AddEntityFrameworkStores<ProductContext>();
 
             services.AddLogging();
 
-            services.AddSingleton<ITableService,TableService>();
             services.AddTransient<QMGContextSeedData>();
-            services.AddScoped<IQMGRepository, QMGRepository>();
-            services.AddScoped<IMailService,MailService>();
-            services.AddScoped<IBasketService, BasketService>();
-            services.AddSingleton<ILoggingService, LoggingService>();
-            services.AddSingleton<IBlobbingService, BlobbingService>();
-            services.AddSingleton<IRedisService, RedisService>();
+            DependencyInjection.Configuration(services);
         }
 
         public async void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory, QMGContextSeedData seeder)
@@ -93,11 +89,6 @@ namespace QuoteMyGoods
             app.UseStaticFiles();
 
             app.UseIdentity();
-
-            Mapper.Initialize(config =>
-            {
-                config.CreateMap<Product, Product>().ReverseMap();
-            });
 
             app.UseMvc(config =>
             {

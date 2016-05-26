@@ -1,15 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using QuoteMyGoods.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using QuoteMyGoods.Areas.Products.Models;
 using System.Threading.Tasks;
 
 namespace QuoteMyGoods.ViewComponents
 {
     public class ProductDetailsViewComponent:ViewComponent
     {
-        public async Task<IViewComponentResult> InvokeAsync(Product product)
+        public async Task<IViewComponentResult> InvokeAsync(ProductVM product)
         {
             return View(product);
         }

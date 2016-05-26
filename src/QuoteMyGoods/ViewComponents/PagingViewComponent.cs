@@ -1,18 +1,15 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using QuoteMyGoods.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using QuoteMyGoods.Business.Products;
 using System.Threading.Tasks;
 
 namespace QuoteMyGoods.ViewComponents
 {
     public class PagingViewComponent:ViewComponent
     {
-        private readonly IQMGRepository _repository;
+        private IProductService _repository;
 
-        public PagingViewComponent(IQMGRepository repository)
+        public PagingViewComponent(IProductService repository)
         {
             _repository = repository;
         }
