@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using System.Diagnostics;
 using QuoteMyGoods.Data.Products;
 using Newtonsoft.Json;
+using QuoteMyGoods.Data.Common;
 
 namespace QuoteMyGoods.Data.Basket
 {
@@ -64,8 +65,8 @@ namespace QuoteMyGoods.Data.Basket
                 }
                 else
                 {
-                    _Basket = basket.Basket;
-                    BasketCount = basket.GetBasketCount();
+                    _Basket = basket;
+                    BasketCount = basket.BasketCount;
                 }
             }
             catch (Exception ex)

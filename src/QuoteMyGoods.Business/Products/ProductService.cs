@@ -23,9 +23,9 @@ namespace QuoteMyGoods.Business.Products
 
     public class ProductService:IProductService
     {
-        private ProductRepository _repo;
+        private IProductRepository _repo;
 
-        public ProductService(ProductRepository repo)
+        public ProductService(IProductRepository repo)
         {
             _repo = repo;
         }

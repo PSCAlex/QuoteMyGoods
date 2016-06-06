@@ -9,6 +9,7 @@ using System.Net;
 
 namespace QuoteMyGoods.Areas.Api.Controllers
 {
+    [Area("Api")]
     //[Authorize]
     public class ProductsApiController:Controller
     {

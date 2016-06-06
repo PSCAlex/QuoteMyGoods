@@ -12,6 +12,7 @@ using QuoteMyGoods.Areas.Products.Models;
 
 namespace QuoteMyGoods.Areas.Products.Controllers
 {
+    [Area("Products")]
     [Authorize(Roles = "Pleb,Administrator")]
     public class ProductsController:Controller
     {

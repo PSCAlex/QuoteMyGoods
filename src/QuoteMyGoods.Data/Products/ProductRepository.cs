@@ -7,7 +7,28 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace QuoteMyGoods.Data.Products
 {
-    public class ProductRepository
+    public interface IProductRepository
+    {
+        void AddProduct(ProductDM newProduct);
+
+        int CurrentProductCount();
+
+        void DeleteProduct(int id);
+
+        Task<IEnumerable<ProductDM>> GetAllProducts();
+
+        Task<SelectList> GetCategories();
+
+        Task<ProductDM> GetProductById(int? id);
+
+        Task<int> GetProductCount();
+
+        Task<IEnumerable<ProductDM>> GetProductsByCategory(string categoryName);
+        bool SaveAll();
+
+        void UpdateProduct(ProductDM product);
+    }
+    public class ProductRepository : IProductRepository
     {
         private ProductContext _context;
         private int _currentProductCount;

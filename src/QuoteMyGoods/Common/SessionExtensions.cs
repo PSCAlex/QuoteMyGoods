@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 
-namespace QuoteMyGoods.Common
+namespace QuoteMyGoods.Web.Common
 {
     public static class SessionExtensions
     {

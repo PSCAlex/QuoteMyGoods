@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace QuoteMyGoods.Areas.Basket.Controllers
 {
+    [Area("Basket")]
     [Authorize]
     public class BasketController:Controller
     {

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace QuoteMyGoods.Data.Products
 {
@@ -14,6 +15,15 @@ namespace QuoteMyGoods.Data.Products
         {
             Database.EnsureCreated();
         }
+
+        /*
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            foreach (var entity in builder.Model.GetEntityTypes())
+            {
+                entity.Relational().TableName = entity.DisplayName();
+            }
+        }*/
 
         public DbSet<ProductDM> Products { get; set; }
     }

@@ -6,6 +6,7 @@ using QuoteMyGoods.Web;
 
 namespace QuoteMyGoods.Areas.App.Controllers
 {
+    [Area("App")]
     public class AppController : Controller
     {
         public AppController()

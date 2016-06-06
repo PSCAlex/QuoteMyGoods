@@ -1,4 +1,4 @@
-﻿namespace QuoteMyGoods.Services
+﻿/*namespace QuoteMyGoods.Services
 {
     public interface IBlobbingService
     {
@@ -25,4 +25,4 @@
             return default(T);
         }
     }
-}
+}*/

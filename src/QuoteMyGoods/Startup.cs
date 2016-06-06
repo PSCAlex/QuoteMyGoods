@@ -90,16 +90,17 @@ namespace QuoteMyGoods.Web
 
             app.UseIdentity();
 
-            app.UseMvc(config =>
+            app.UseMvc(routes =>
             {
-            config.MapRoute(
-                name: "Default",
-                template: "{controller}/{action}/{id?}",
-                defaults: new { controller = "App", action = "Index" }
-                );
+                routes.MapRoute(name: "areaRoute",
+                  template: "{area:exists}/{controller=App}/{action=Index}");
+
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=App}/{action=Index}");
             });
 
-            await seeder.EnsureSeedDataAsync();
+            //await seeder.EnsureSeedDataAsync();
         }  
     }
 }
