@@ -1,0 +1,285 @@
+﻿<div class="col-md-10 col-md-offset-1">
+    <div class="col-md-10 ">
+        <div class="col-md-9">
+            <div id="d3QuestionArea">
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-8 col-md-offset-1">
+        <div>
+            <ul id="areaText"></ul>
+            <br>
+            <button type="button" onclick="joinTheDots()" class="btn btn-default">Join The Dots</button>
+            <button type="button" onclick="reset()" class="btn btn-default">Reset</button>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    ////////////alex svg/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    function alexValToPixY(inputValue) {
+        //0.27 = 540/2000 = height - padding * 2
+        // 30 is padding
+        //-1000 to centralise axis
+        //* -1 to inverse
+        return ((inputValue / 0.27) - (30/ 0.27) - 1000) * -1;
+    }
+
+    function alexPixToValY(inputValue){
+        return (((inputValue + 1000)*0.27 + 30)-600)*-1;
+    }
+
+    function alexValToPixX(inputValue) {
+        //0.45 = 910/2000 = width - 45*2 (45 seems to be the padding)
+        //45 is padding
+        //-1000 to centralise
+        return (inputValue / 0.455) - (45/ 0.455) - 1000;
+    }
+
+    function alexPixToValX(inputValue){
+        return (inputValue + 1000)*0.455 +45;
+    }
+
+    var lineData = [];
+    var nodeArray = [];
+    var normLineData = [];
+    var arrayCount = 0;
+    var allLines = [];
+    var allNormLines = [];
+    var count = 0;
+    var colourCount = 0;
+
+    var joinTheDots = function(){
+
+        for (i = 0; i < nodeArray.length; i++) {
+            lineData.push({"x":nodeArray[i].attr("cx"),"y":nodeArray[i].attr("cy")});
+            normLineData.push({"x":alexValToPixX(nodeArray[i].attr("cx")),"y":alexValToPixY(nodeArray[i].attr("cy"))});
+        }
+
+        lineData.push({"x":nodeArray[0].attr("cx"),"y":nodeArray[0].attr("cy")});
+        normLineData.push({"x":alexValToPixX(nodeArray[0].attr("cx")),"y":alexValToPixY(nodeArray[0].attr("cy"))});
+
+        var lineFunction = d3.svg.line()
+            .x(function(d) { return d.x; })
+            .y(function(d) { return d.y; })
+            .interpolate("linear");
+
+        var pathContainer = d3.select("#pathContainer");
+        pathContainer.append("path")
+            .attr("class","dotPath")
+            .attr("id",arrayCount)
+            .attr("d", lineFunction(lineData))
+            .attr("stroke-width", 2)
+            .attr("fill", "#B5E9EA")
+            .attr("opacity","0.5")
+            .attr("arrayCount",arrayCount);
+
+        allLines[arrayCount] = lineData;
+        allNormLines[arrayCount] = normLineData;
+        normLineData = [];
+        lineData = [];
+        nodeArray = [];
+
+        d3.selectAll(".textT").remove();
+        d3.selectAll(".circle").attr("r",7);
+
+        count = 0;
+        colourCount = 0;
+
+        d3.select("#areaText").append("li").text("Area: " + (arrayCount + 1));
+        arrayCount ++;
+        console.log(allLines);
+    }
+
+    reset = function(){
+        d3.selectAll("circle").remove();
+        d3.selectAll(".textT").remove();
+        d3.selectAll(".dotPath").remove();
+        d3.select("#areaText").selectAll("*").remove();
+        count = 0;
+        colourCount = 0;
+        nodeArray = [];
+        lineData = [];
+        joined = false;
+        arrayCount = 0;
+    }
+
+    function alexDragmove() {
+        var point = d3.mouse(this);
+        var x = point[0];
+        var y = point[1];
+        var arrayCount = d3.select(this).attr("arrayCount");
+        if (x > padding + radius && x < ((width - (padding * 2)) + radius) && y < (height - padding) && y > padding) {
+            if (d3.select(this).attr("class") == "circle") {
+                d3.select(this).attr("cx", x);
+                d3.select(this).attr("cy", y);
+                d3.select(this.parentNode.childNodes[1]).attr("transform", "translate(" + (x - 5) + "," + (y + 5) + ")");
+            } else {
+                d3.select(this.parentNode.childNodes[0]).attr("cx", x);
+                d3.select(this.parentNode.childNodes[0]).attr("cy", y);
+                d3.select(this).attr("transform", "translate(" + (x - 5) + "," + (y + 5) + ")")
+            }
+
+            var lineData = allLines[arrayCount];
+
+            if (lineData != undefined) {
+                if (this.id == 0) {
+                    lineData[lineData.length - 1] = { "x": x, "y": y };
+                }
+
+                lineData[this.id] = { "x": x, "y": y };
+
+                var lineFunction = d3.svg.line()
+                    .x(function (d) { return d.x; })
+                    .y(function (d) { return d.y; })
+                    .interpolate("linear");
+
+                var paths = d3.selectAll(".dotPath").each(function (d) {
+                    var arCount = d3.select(this).attr("id");
+                    if (arCount == arrayCount) {
+                        d3.select(this).attr("d", lineFunction(lineData));
+                    }
+                });
+            }
+        }
+    }
+
+    function mousedown() {
+        if (d3.event.button == 2) {
+            //no idea
+        }else{
+            if (d3.event.target.className.baseVal != "circle" && d3.event.target.className.baseVal != "textT" && d3.event.target.className.baseVal != "dotPath"){
+                var coordinates = [0, 0];
+                coordinates = d3.mouse(this);
+                var x = coordinates[0];
+                var y = coordinates[1];
+
+                var container = svg.append("g");
+
+                var circle = container.append("circle")
+                .attr("id",count)
+                .attr("class","circle")
+                .attr("fill","#B5E9EA")
+                .attr("r", radius)
+                .attr("cx", x)
+                .attr("cy", y)
+                .attr("arrayCount",arrayCount)
+                .on("mousedown",mousedown)
+                .on("drag",alexDragmove)
+                .call(drag);
+
+                var text = container.append("text")
+                .attr("class","textT")
+                .text((count + 1))
+                .attr("transform","translate(" + (x-5) + "," + (y+5) + ")")
+                .attr("id",count)
+                .attr("arrayCount",arrayCount)
+                .attr("fill","#00414A")
+                .on("drag",alexDragmove)
+                .call(drag);
+
+                count++;
+                colourCount++;
+
+                if (colourCount >= colours.length){
+                    colourCount = 0;
+                }
+                nodeArray.push(circle);
+            }
+        }
+    }
+
+    function mousemove(){
+        var coordinates = [0, 0];
+        coordinates = d3.mouse(this);
+        var x = Math.round(alexValToPixX(coordinates[0]));
+        var y = Math.round(alexValToPixY(coordinates[1]));
+        d3.select("#coordText").text("x:" + x + " " + "y:" + y);
+    }
+
+    function rightclick(){
+        d3.event.preventDefault();
+        console.log("right click");
+    }
+
+    // Define drag beavior
+    var drag = d3.behavior.drag()
+        .on("drag", alexDragmove);
+
+    var width = 1000,
+    height = 600,
+    radius = 15;
+    padding = 30;
+
+    var svg = d3.select("#d3QuestionArea").append("div").selectAll("svg")
+        .data(d3.range(1).map(function() { return {x: width / 2, y: height / 2}; }))
+        .enter().append("svg")
+        .attr("width", width)
+        .attr("height", height)
+        .on("mousedown",mousedown)
+        .on("mousemove",mousemove)
+        .on("contextmenu", function (d, i) {
+            d3.event.preventDefault();
+            // react on right-clicking
+        });
+
+    svg.selectAll("*").remove();
+
+    var colours = ["#FF0000","#FFFF00","#0066FF","#00FF00","#00FFCC","#FF0066"];
+
+    //Create scale functions
+    var xScale = d3.scale.linear()
+        .domain([-1000, 1000])
+        .range([padding, width - padding * 2]);
+
+    var yScale = d3.scale.linear()
+        .domain([-1000, 1000])
+        .range([height - padding, padding]);
+
+    //Define X axis
+    var xData = ["Idea","Start Up","Repeatable","Stable","Growing"];
+    var xAxis = d3.svg.axis()
+        .scale(xScale)
+        .orient("bottom")
+        .ticks(5)
+        .tickFormat(function(d,i) { return xData[i]; });
+
+    //Define Y axis
+    var yData = ["Generate sustainable income","Grow organically","","Expand","Explode"];
+    var yAxis = d3.svg.axis()
+        .scale(yScale)
+        .orient("left")
+        .ticks(5)
+        .tickFormat(function(d,i) { return yData[i]; });
+
+    //Create X axis
+    svg.append("g")
+        .attr("id","x")
+        .attr("class", "axis")
+        .attr("transform", "translate(" + (padding/2) + "," + (height - padding - ((height - (padding * 2))/2)) + ")")
+        .call(xAxis);
+
+    //Create Y axis
+    svg.append("g")
+        .attr("id","y")
+        .attr("class", "axis")
+        .attr("transform", "translate(" + (padding + ((width - (padding * 2))/2)) + ",0)")
+        .call(yAxis);
+
+    svg.append("g")
+        .attr("id","pathContainer");
+
+    svg.append("text")
+        .attr("id","coordText")
+        .attr("transform","translate(" + (width - (padding*3)-20) + "," + (height - padding + 20)+ ")")
+        .text("x:0" + " " + "y:0");
+
+    var lineFunction = d3.svg.line()
+        .x(function(d) { return d.x; })
+        .y(function(d) { return d.y; })
+        .interpolate("linear");
+
+</script>

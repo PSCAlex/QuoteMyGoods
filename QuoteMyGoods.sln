@@ -10,13 +10,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		global.json = global.json
 	EndProjectSection
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "QuoteMyGoods.Web", "src\QuoteMyGoods\QuoteMyGoods.Web.xproj", "{0B24D0EF-8548-49C0-BDD5-EA3392D2F0C7}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "QuoteMyGoods", "src\QuoteMyGoods\QuoteMyGoods.xproj", "{0B24D0EF-8548-49C0-BDD5-EA3392D2F0C7}"
 EndProject
+<<<<<<< HEAD
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "QuoteMyGoods.Azure", "src\QMGAzureWrappers\QuoteMyGoods.Azure.xproj", "{13AD0D63-07B2-4E00-92C0-B5D419E4094F}"
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "QuoteMyGoods.Business", "src\QuoteMyGoods.Business\QuoteMyGoods.Business.xproj", "{3298BBA3-7E77-45D8-8389-E35071B64003}"
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "QuoteMyGoods.Data", "src\QuoteMyGoods.Data\QuoteMyGoods.Data.xproj", "{7DD3FADF-1D5F-470D-988F-E7EBB84B85A0}"
+=======
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "QMGAzure", "src\QMGAzure\QMGAzure.xproj", "{003C9873-628D-4199-9B41-282CB3A2E9BF}"
+>>>>>>> parent of 5027d68... convert to 3 layer model
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,6 +32,7 @@ Global
 		{0B24D0EF-8548-49C0-BDD5-EA3392D2F0C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0B24D0EF-8548-49C0-BDD5-EA3392D2F0C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0B24D0EF-8548-49C0-BDD5-EA3392D2F0C7}.Release|Any CPU.Build.0 = Release|Any CPU
+<<<<<<< HEAD
 		{13AD0D63-07B2-4E00-92C0-B5D419E4094F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{13AD0D63-07B2-4E00-92C0-B5D419E4094F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{13AD0D63-07B2-4E00-92C0-B5D419E4094F}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -40,14 +45,24 @@ Global
 		{7DD3FADF-1D5F-470D-988F-E7EBB84B85A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7DD3FADF-1D5F-470D-988F-E7EBB84B85A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7DD3FADF-1D5F-470D-988F-E7EBB84B85A0}.Release|Any CPU.Build.0 = Release|Any CPU
+=======
+		{003C9873-628D-4199-9B41-282CB3A2E9BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{003C9873-628D-4199-9B41-282CB3A2E9BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{003C9873-628D-4199-9B41-282CB3A2E9BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{003C9873-628D-4199-9B41-282CB3A2E9BF}.Release|Any CPU.Build.0 = Release|Any CPU
+>>>>>>> parent of 5027d68... convert to 3 layer model
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{0B24D0EF-8548-49C0-BDD5-EA3392D2F0C7} = {52196F9C-31B7-4D22-910F-D76083BE3E88}
+<<<<<<< HEAD
 		{13AD0D63-07B2-4E00-92C0-B5D419E4094F} = {52196F9C-31B7-4D22-910F-D76083BE3E88}
 		{3298BBA3-7E77-45D8-8389-E35071B64003} = {52196F9C-31B7-4D22-910F-D76083BE3E88}
 		{7DD3FADF-1D5F-470D-988F-E7EBB84B85A0} = {52196F9C-31B7-4D22-910F-D76083BE3E88}
+=======
+		{003C9873-628D-4199-9B41-282CB3A2E9BF} = {52196F9C-31B7-4D22-910F-D76083BE3E88}
+>>>>>>> parent of 5027d68... convert to 3 layer model
 	EndGlobalSection
 EndGlobal

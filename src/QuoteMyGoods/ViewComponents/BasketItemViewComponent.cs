@@ -1,5 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using QuoteMyGoods.Data.Basket;
+using QuoteMyGoods.Common;
+using QuoteMyGoods.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace QuoteMyGoods.ViewComponents
