@@ -27,27 +27,27 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a  asp-area="App" asp-controller="App" asp-action="Index" class="navbar-brand">Quote My Goods</a>
+                    <a asp-controller="App" asp-action="Index" class="navbar-brand">Quote My Goods</a>
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li><a asp-area="App" asp-controller="App" asp-action="Index">Home</a></li>
-                        <li><a asp-area="App"  asp-controller="App" asp-action="About">About</a></li>
-                        <li><a asp-area="App"  asp-controller="App" asp-action="Contact">Contact</a></li>
-                        <li><a asp-area="Admin"  asp-controller="Admin" asp-action="Index">Admin</a></li>
-                        <li><a asp-area="Admin"  asp-controller="Admin" asp-action="Tables">Tables</a></li>
-                        <li><a asp-area="App"  asp-controller="App" asp-action="JoinTheDotsTypeScript">Join the dots ts</a></li>
-                        <li><a asp-area="App" asp-controller="App" asp-action="MegaForm">Mega Form</a></li>
+                        <li><a asp-controller="App" asp-action="Index">Home</a></li>
+                        <li><a asp-controller="App" asp-action="About">About</a></li>
+                        <li><a asp-controller="App" asp-action="Contact">Contact</a></li>
+                        <li><a asp-controller="Admin" asp-action="Index">Admin</a></li>
+                        <li><a asp-controller="Admin" asp-action="Tables">Tables</a></li>
+                        <li><a asp-controller="App" asp-action="JoinTheDotsTypeScript">Join the dots ts</a></li>
+                        <li><a asp-controller="App" asp-action="MegaForm">Mega Form</a></li>
                         @if (!User.Identity.IsAuthenticated)
                         {
-                            <li><a asp-area="Auth" asp-controller="Auth" asp-action="Login">Login</a></li>
-                            <li><a asp-area="Auth" asp-controller="Auth" asp-action="Signup">Signup</a></li>
+                            <li><a asp-controller="Auth" asp-action="Login">Login</a></li>
+                            <li><a asp-controller="Auth" asp-action="Signup">Signup</a></li>
 
                         }
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <li><a asp-area="Products"  asp-controller="Products" asp-action="Products">Products</a></li>
-                            <li><a asp-area="Auth"  asp-controller="Auth" asp-action="Logout">Logout</a></li>
+                            <li><a asp-controller="Products" asp-action="Products">Products</a></li>
+                            <li><a asp-controller="Auth" asp-action="Logout">Logout</a></li>
                         }
                     </ul>
                     <ul class="nav navbar-right">

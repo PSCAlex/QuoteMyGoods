@@ -8,7 +8,6 @@ using System.Net;
 
 namespace QuoteMyGoods.Controllers.Api
 {
-    [Area("Api")]
     //[Authorize]
     public class ProductsApiController:Controller
     {

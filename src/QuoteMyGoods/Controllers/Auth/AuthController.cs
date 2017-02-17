@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 
 namespace QuoteMyGoods.Controllers.Auth
 {
-    [Area("Auth")]
     [AllowAnonymous]
     public class AuthController:Controller
     {

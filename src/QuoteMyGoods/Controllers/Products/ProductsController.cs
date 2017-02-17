@@ -13,7 +13,6 @@ using Microsoft.AspNetCore.Identity;
 
 namespace QuoteMyGoods.Controllers.Products
 {
-    [Area("Products")]
     [Authorize(Roles = "Pleb,Administrator")]
     public class ProductsController:Controller
     {

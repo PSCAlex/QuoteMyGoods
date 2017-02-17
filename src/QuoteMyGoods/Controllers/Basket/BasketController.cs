@@ -12,7 +12,6 @@ using System.Threading.Tasks;
 
 namespace QuoteMyGoods.Controllers.Basket
 {
-    [Area("Basket")]
     [Authorize]
     public class BasketController:Controller
     {

@@ -25,7 +25,6 @@ namespace QuoteMyGoods.Controllers.Admin
         }
     }
 
-    [Area("Admin")]
     public class AdminController : Controller
     {
         //private MyDocumentDB _db;

@@ -7,7 +7,6 @@ using QuoteMyGoods.Models;
 
 namespace QuoteMyGoods.Controllers.App
 {
-    [Area("App")]
     public class AppController : Controller
     {
         private IMailService _mailService;

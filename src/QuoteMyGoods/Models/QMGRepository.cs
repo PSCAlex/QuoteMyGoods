@@ -6,32 +6,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace QuoteMyGoods.Models
 {
-<<<<<<< HEAD:src/QuoteMyGoods.Data/Products/ProductRepository.cs
-    public interface IProductRepository
-    {
-        void AddProduct(ProductDM newProduct);
-
-        int CurrentProductCount();
-
-        void DeleteProduct(int id);
-
-        Task<IEnumerable<ProductDM>> GetAllProducts();
-
-        Task<SelectList> GetCategories();
-
-        Task<ProductDM> GetProductById(int? id);
-
-        Task<int> GetProductCount();
-
-        Task<IEnumerable<ProductDM>> GetProductsByCategory(string categoryName);
-        bool SaveAll();
-
-        void UpdateProduct(ProductDM product);
-    }
-    public class ProductRepository : IProductRepository
-=======
     public class QMGRepository : IQMGRepository
->>>>>>> parent of 5027d68... convert to 3 layer model:src/QuoteMyGoods/Models/QMGRepository.cs
     {
         private QMGContext _context;
         private ILogger<QMGRepository> _logger;

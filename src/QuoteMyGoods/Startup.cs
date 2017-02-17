@@ -94,26 +94,21 @@ namespace QuoteMyGoods
 
             app.UseIdentity();
 
-<<<<<<< HEAD
-            app.UseMvc(routes =>
-=======
             Mapper.Initialize(config =>
             {
                 config.CreateMap<Product, Product>().ReverseMap();
             });
 
             app.UseMvc(config =>
->>>>>>> parent of 5027d68... convert to 3 layer model
             {
-                routes.MapRoute(name: "areaRoute",
-                  template: "{area:exists}/{controller=App}/{action=Index}");
-
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=App}/{action=Index}");
+            config.MapRoute(
+                name: "Default",
+                template: "{controller}/{action}/{id?}",
+                defaults: new { controller = "App", action = "Index" }
+                );
             });
 
-            //await seeder.EnsureSeedDataAsync();
+            await seeder.EnsureSeedDataAsync();
         }  
     }
 }
